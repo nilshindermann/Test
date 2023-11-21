@@ -1,3 +1,5 @@
 Was this file generated with a signed commit?
 
 This is just another test
+
+Why aren't commits signed by default??
