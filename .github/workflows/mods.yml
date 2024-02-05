@@ -1,0 +1,27 @@
+name: Download new mods data
+
+on: [workflow_dispatch]
+
+permissions: 
+  contents: read
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Append to file
+        run: |
+          mkdir generated
+          wget "https://api.modrinth.com/v2/search?facets=[[%22author:TheMCBrothers%22],[%22project_type:mod%22]]" -O ./generated/mods.json
+
+      - name: Upload a updated file
+        uses: actions/upload-artifact@v4.3.0
+        with:
+          path: generated/*
+          if-no-files-found: ignore
+          overwrite: true
+          
